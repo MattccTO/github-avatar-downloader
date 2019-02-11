@@ -1,6 +1,9 @@
 # Private information file
 secrets.js
 
+# ignore avatars subdir
+avatars/
+
 # Logs
 logs
 *.log
