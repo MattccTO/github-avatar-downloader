@@ -1,8 +1,11 @@
 # Private information file
 secrets.js
 
-# ignore avatars subdir
+# Avatars subdir
 avatars/
+
+# DotEnv
+.env
 
 # Logs
 logs
