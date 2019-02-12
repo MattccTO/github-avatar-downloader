@@ -23,7 +23,7 @@ function getRepoContributors(repoOwner, repoName, callback) {
     }
   };
   request(options, function(err, response, body) {
-    parsedBody = JSON.parse(body);
+    let parsedBody = JSON.parse(body);
     callback(err, parsedBody);
   });
 }
