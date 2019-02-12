@@ -14,4 +14,4 @@ This program should be executed from the command line, in the following manner:
 
 - [x] Initialize Git
 - [x] Install 'Request' library
-- [ ] Write a modular function that handles the get request and pipes the required outputs to the desired location, with appropriate labelling
+- [x] Write a modular function that handles the get request and pipes the required outputs to the desired location, with appropriate labelling

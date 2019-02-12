@@ -54,7 +54,7 @@ getRepoContributors(owner, repo, function(err, result) {
     console.log('Errors: ', err);
   }
   if (owner === '' || repo === '') {
-  return console.log('Please specify both a Repo Owner and a Repo Name.');
+    return console.log('Please specify both a Repo Owner and a Repo Name.');
   } else {
     console.log('Now downloading avatars...');
     result.forEach(function (result) {
