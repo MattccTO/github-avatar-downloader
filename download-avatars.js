@@ -7,7 +7,6 @@ require('dotenv').config();
 console.log('Welcome to the GitHub Avatar Downloader!');
 
 const owner = process.argv.slice(2, 3).toString();
-
 const repo = process.argv.slice(3).toString();
 
 // Get the repo contributor info from source
@@ -61,8 +60,8 @@ getRepoContributors(owner, repo, (err, result) => {
       }
     });
   }
-  if (owner === '' || repo === '') {
-    console.log('Please specify both a Repo Owner and a Repo Name.');
+  if (process.argv.length !== 4) {
+    console.log('Please enter the repo owner and repo name as one string each, only.');
   } else {
     console.log('Now downloading avatars...');
     result.forEach((array) => {
