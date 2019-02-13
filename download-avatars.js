@@ -12,15 +12,15 @@ const repo = process.argv.slice(3).toString();
 
 // Get the repo contributor info from source
 function getRepoContributors(repoOwner, repoName, callback) {
-  let options = {
+  const options = {
     url: `https://api.github.com/repos/${repoOwner}/${repoName}/contributors`,
     headers: {
       'User-Agent': 'request',
-      'Authorization': `token ${secret.GITHUB_TOKEN}`
+      Authorization: `token ${secret.GITHUB_TOKEN}`
     }
   };
-  request(options, function(err, response, body) {
-    let parsedBody = JSON.parse(body);
+  request(options, (err, response, body) => {
+    const parsedBody = JSON.parse(body);
     callback(err, parsedBody);
   });
 }
@@ -33,34 +33,34 @@ function getRepoContributors(repoOwner, repoName, callback) {
 function downloadImageByURL(url, filePath) {
   let fileExtension = '';
   request.get(url)
-         .on('error', function(err) {
-           console.log('Oopsie, there was an error!');
-           throw err;
-         })
-         .on('response', function(response) {
-           fileExtension = response.headers['content-type'].slice(6);
-           // console.log(fileExtension);
-           console.log(`Response Status Code: ${response.statusCode}`);
-         })
-         .pipe(fs.createWriteStream(filePath))
-         .on('finish', function () {
-           fs.renameSync(filePath, `${filePath}.${fileExtension}`)
-         });
+    .on('error', (err) => {
+      console.log('Oopsie, there was an error!');
+      throw err;
+    })
+    .on('response', (response) => {
+      fileExtension = response.headers['content-type'].slice(6);
+      // console.log(fileExtension);
+      console.log(`Response Status Code: ${response.statusCode}`);
+    })
+    .pipe(fs.createWriteStream(filePath))
+    .on('finish', () => {
+      fs.renameSync(filePath, `${filePath}.${fileExtension}`);
+    });
 }
 
 // Invoke the getRepoContributors function
-getRepoContributors(owner, repo, function(err, result) {
+getRepoContributors(owner, repo, (err, result) => {
   if (err) {
     console.log('Errors: ', err);
   }
   if (owner === '' || repo === '') {
-    return console.log('Please specify both a Repo Owner and a Repo Name.');
+    console.log('Please specify both a Repo Owner and a Repo Name.');
   } else {
     console.log('Now downloading avatars...');
-    result.forEach(function (result) {
-      let currentUserID = result.login;
-      let currentURL = result.avatar_url;
-      let currentFilePath = `./avatars/${currentUserID}`;
+    result.forEach((array) => {
+      const currentUserID = array.login;
+      const currentURL = array.avatar_url;
+      const currentFilePath = `./avatars/${currentUserID}`;
       downloadImageByURL(currentURL, currentFilePath);
     });
   }
