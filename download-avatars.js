@@ -19,8 +19,14 @@ function getRepoContributors(repoOwner, repoName, callback) {
     }
   };
   request(options, (err, response, body) => {
-    const parsedBody = JSON.parse(body);
-    callback(err, parsedBody);
+    if (response.statusCode === 404) {
+      console.log('404 Response Code: Invalid repo owner and repo name combination.');
+    } else if (err) {
+      console.log(err);
+    } else {
+      const parsedBody = JSON.parse(body);
+      callback(err, parsedBody);
+    }
   });
 }
 
