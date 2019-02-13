@@ -53,6 +53,14 @@ getRepoContributors(owner, repo, (err, result) => {
   if (err) {
     console.log('Errors: ', err);
   }
+  const targetPath = './avatars/';
+  if (fs.existsSync(targetPath) === false) {
+    fs.mkdir(targetPath, (error) => {
+      if (error) {
+        console.log('Errors: ', error);
+      }
+    });
+  }
   if (owner === '' || repo === '') {
     console.log('Please specify both a Repo Owner and a Repo Name.');
   } else {
@@ -60,7 +68,7 @@ getRepoContributors(owner, repo, (err, result) => {
     result.forEach((array) => {
       const currentUserID = array.login;
       const currentURL = array.avatar_url;
-      const currentFilePath = `./avatars/${currentUserID}`;
+      const currentFilePath = `${targetPath}${currentUserID}`;
       downloadImageByURL(currentURL, currentFilePath);
     });
   }
