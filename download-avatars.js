@@ -15,7 +15,7 @@ function errorChecker() {
     console.log('Environment variables file does not exist. Please create and retry.');
     noErrors = false;
   } else if (!process.env.githubToken) {
-    console.log('Environment variables file does not contain User-Agent Authorization Token. Please add token and retry.');
+    console.log('Environment variables file does not contain Github Authorization Token. Please add token and retry.');
     noErrors = false;
   }
   if (process.argv.length !== 4) {
@@ -38,6 +38,8 @@ function getRepoContributors(repoOwner, repoName, callback) {
     request(options, (err, response, body) => {
       if (response.statusCode === 404) {
         console.log('404 Response Code: Invalid repo owner and repo name combination.');
+      } else if (response.statusCode === 401) {
+        console.log('401 Response Code: Invalid Github Authorization Token.');
       } else if (err) {
         console.log(err);
       } else {
